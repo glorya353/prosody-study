@@ -30,12 +30,13 @@ const toNumOrBlank = (v) => (v === "" ? "" : Number(v));
 
 /* ===== Firebase config: PASTE YOURS HERE ===== */
 const firebaseConfig = {
-  // apiKey: "…",
-  // authDomain: "…",
-  // projectId: "…",
-  // storageBucket: "…",
-  // messagingSenderId: "…",
-  // appId: "…"
+  apiKey: "AIzaSyCkGjSBaimmDrm_0Filjp8XjD5HrbRQrg4",
+  authDomain: "prosody-study.firebaseapp.com",
+  projectId: "prosody-study",
+  storageBucket: "prosody-study.firebasestorage.app",
+  messagingSenderId: "587902540180",
+  appId: "1:587902540180:web:a19bc722e2348f9dc1d781",
+  measurementId: "G-QT7RF74ESR"
 };
 
 const app = initializeApp(firebaseConfig);
