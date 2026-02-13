@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Language Identification Study</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="top-row">
+        <div>
+          <h1>Language Identification Study / Estudio de identificación de idioma</h1>
+          <p class="sub">
+            You will listen to short altered audio clips and decide whether each is English or Spanish.
+            <br />
+            Escucharás clips de audio alterados y decidirás si cada uno es inglés o español.
+          </p>
+        </div>
+
+        <button id="btnTheme" class="btn btn-ghost" type="button" aria-label="Toggle theme">
+          ☾ / ☀
+        </button>
+      </div>
+    </header>
+
+    <!-- CONSENT -->
+    <section id="screen-consent" class="card">
+      <h2>Consent / Consentimiento</h2>
+
+      <p>
+        <strong>English:</strong> This is a class research study about how people identify languages using rhythm and intonation.
+        Participation is voluntary. You may stop at any time. We do not collect your name or identifying information.
+      </p>
+
+      <p>
+        <strong>Español:</strong> Este es un estudio de investigación para una clase sobre cómo las personas identifican idiomas
+        usando el ritmo y la entonación. La participación es voluntaria. Puedes dejar de participar en cualquier momento.
+        No recopilamos tu nombre ni información que te identifique.
+      </p>
+
+      <label class="check">
+        <input type="checkbox" id="consentCheck" />
+        I am at least 18 years old and I consent to participate.
+        <br />
+        Tengo al menos 18 años y doy mi consentimiento para participar.
+      </label>
+
+      <button id="btnConsentNext" class="btn btn-primary" disabled>Continue / Continuar</button>
+    </section>
+
+    <!-- QUESTIONNAIRE -->
+    <section id="screen-questionnaire" class="card hidden">
+      <h2>Language Background / Información lingüística</h2>
+
+      <p class="small muted">
+        <strong>English:</strong> Please answer only what applies to you. Only Age and Languages are required.
+        <br />
+        <strong>Español:</strong> Por favor responde solo lo que aplique a ti. Solo Edad e Idiomas son obligatorios.
+      </p>
+
+      <div class="grid">
+        <label>
+          Age (required) / Edad (obligatorio)
+          <input id="age" type="number" min="18" max="99" placeholder="e.g., 22 / p. ej., 22" required />
+        </label>
+
+        <label>
+          Languages you use regularly (required) / Idiomas que usas regularmente (obligatorio)
+          <input id="langs" type="text" placeholder="e.g., English, Spanish / p. ej., inglés, español" required />
+        </label>
+
+        <label>
+          Age of acquisition for English (optional) / Edad de adquisición del inglés (opcional)
+          <input id="aoaEn" type="number" min="0" max="99" placeholder="e.g., 0 / p. ej., 0" />
+        </label>
+
+        <label>
+          Age of acquisition for Spanish (optional) / Edad de adquisición del español (opcional)
+          <input id="aoaEs" type="number" min="0" max="99" placeholder="e.g., 10 / p. ej., 10" />
+        </label>
+
+        <label>
+          English proficiency (1–5) (optional) / Dominio del inglés (1–5) (opcional)
+          <select id="profEn">
+            <option value="">Select / Selecciona…</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </label>
+
+        <label>
+          Spanish proficiency (1–5) (optional) / Dominio del español (1–5) (opcional)
+          <select id="profEs">
+            <option value="">Select / Selecciona…</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </label>
+
+        <label>
+          Language used most often (optional) / Idioma usado con más frecuencia (opcional)
+          <select id="dominance">
+            <option value="">Select / Selecciona…</option>
+            <option>English</option>
+            <option>Spanish</option>
+            <option>Both equally</option>
+          </select>
+        </label>
+
+        <fieldset class="fieldset">
+          <legend>
+            Contexts where you primarily use Spanish (optional) /
+            Contextos donde usas principalmente el español (opcional)
+          </legend>
+          <label><input type="checkbox" class="ctx" value="Home"> Home / Casa</label>
+          <label><input type="checkbox" class="ctx" value="School"> School / Escuela</label>
+          <label><input type="checkbox" class="ctx" value="Work"> Work / Trabajo</label>
+          <label><input type="checkbox" class="ctx" value="Friends"> Friends / Amigos</label>
+          <label><input type="checkbox" class="ctx" value="Media"> Media / Medios</label>
+          <label><input type="checkbox" class="ctx" value="Other"> Other / Otro</label>
+        </fieldset>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="doConfidence" checked />
+        Ask me to rate confidence (1–5) after each trial.
+        <br />
+        Pedirme que califique mi confianza (1–5) después de cada ensayo.
+      </label>
+
+      <button id="btnStart" class="btn btn-primary">Start Task / Comenzar</button>
+    </section>
+
+    <!-- TASK -->
+    <section id="screen-task" class="card hidden">
+      <div class="task-top">
+        <div id="progressText" class="muted">Trial 1 / 40 • Ensayo 1 / 40</div>
+        <div class="progress" aria-label="Progress">
+          <div id="barFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <h2 class="center">Listen to the clip / Escucha el clip</h2>
+      <audio id="player" controls></audio>
+
+      <p class="center small">
+        <strong>English:</strong> Choose the language you hear. If unsure, choose the most likely option—or select “Not sure.”
+        <br /><br />
+        <strong>Español:</strong> Elige el idioma que escuchas. Si no estás seguro/a, elige la opción más probable—o selecciona “No estoy seguro(a).”
+      </p>
+
+      <div class="choices">
+        <button id="btnEnglish" class="btn btn-choice">English / Inglés</button>
+        <button id="btnSpanish" class="btn btn-choice">Spanish / Español</button>
+        <button id="btnNotSure" class="btn btn-ghost btn-choice">Not sure / No estoy seguro(a)</button>
+      </div>
+
+      <div id="confidenceBox" class="card-soft">
+        <p class="center small">
+          <strong>English:</strong> How confident are you?
+          <br />
+          <strong>Español:</strong> ¿Qué tan seguro/a estás?
+        </p>
+        <div class="conf">
+          <label><input type="radio" name="conf" value="1"> 1</label>
+          <label><input type="radio" name="conf" value="2"> 2</label>
+          <label><input type="radio" name="conf" value="3"> 3</label>
+          <label><input type="radio" name="conf" value="4"> 4</label>
+          <label><input type="radio" name="conf" value="5"> 5</label>
+        </div>
+      </div>
+
+      <p id="status" class="center status"></p>
+    </section>
+
+    <!-- FINISH -->
+    <section id="screen-finish" class="card hidden">
+      <h2>All set — submitted! / Listo — ¡enviado!</h2>
+
+      <p class="muted">
+        <strong>English:</strong> Your responses have been saved automatically. Thank you!
+        <br />
+        <strong>Español:</strong> Tus respuestas se guardaron automáticamente. ¡Gracias!
+      </p>
+
+      <!-- Optional backup downloads -->
+      <div class="choices">
+        <button id="btnDownloadCSV" class="btn btn-primary">Download backup CSV / Descargar CSV</button>
+        <button id="btnDownloadJSON" class="btn btn-ghost">Download backup JSON / Descargar JSON</button>
+      </div>
+    </section>
+
+    <footer class="foot muted small">
+      Headphones recommended. Please complete this in a quiet space.
+      <br />
+      Se recomiendan audífonos. Por favor realiza esto en un lugar silencioso.
+    </footer>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
